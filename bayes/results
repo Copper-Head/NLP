@@ -1,0 +1,36 @@
+Round 1:
+The training corpus is 500 reviews for every class
+
+The testing corpus is 1000 texts
+size of positive vocabulary: 21809
+size of negative vocabulary: 20859
+done training, it took  0:03:17.063716
+done testing, it took  0:00:01.933050
+precision is: 21.2844036697
+recall is 23.2
+the F1 value is: 22.2009569378
+
+Round 2:
+The training corpus is 700 reviews for every class
+
+The testing corpus is 600 texts
+size of positive vocabulary: 26076
+size of negative vocabulary: 24352
+done training, it took  0:05:35.789176
+done testing, it took  0:00:01.119398
+precision is: 23.1454005935
+recall is 26.0
+the F1 value is: 24.4897959184
+
+Round 3:
+The training corpus is 900 reviews for every class
+
+The testing corpus is 200 texts
+size of positive vocabulary: 29062
+size of negative vocabulary: 27209
+done training, it took  0:08:03.231223
+done testing, it took  0:00:00.393343
+precision is: 22.6086956522
+recall is 26.0
+the F1 value is: 24.1860465116
+
