@@ -45,7 +45,7 @@ class GT_Label():
 		self.N = len(self.rev)
 		self.word_counts = defaultdict(int, [(w, float(self.rev.count(w))) for w in self.V])
 		self.freq_counts = defaultdict(int, {0:self.N})
-		for word in self.word_counts: self.freq_counts[self.word_counts[word]] += 1
+		for word in self.word_counts: self.freq_counts[self.word_counts[word]] += 100
 
 	def get_prob(self, word):
 		k = self.word_counts[word]
@@ -80,7 +80,7 @@ def cat_score(review, cat):
 	return -sum([log(prob(word, cat)) for word in mr.words(review)])
 
 
-def foo(review):
+def find_class(review):
 	'''returns most likely class for a review'''
 	return max([(cat_score(review, cat), cat) for cat in CLASSES])[1]
 
@@ -110,3 +110,31 @@ pos = GT_Label(TRAINING_POSITIVES1)		# train positive reviews
 print 'finished training, that took:', datetime.datetime.now() - start
 print 'size of positive vocabulary: {}\n'.format(len(pos.V))
 print pos.freq_counts
+
+
+
+''' sandbox '''
+
+'''I need a function that takes in two sequences (corresponding ones)
+and generates alpha and beta...
+'''
+
+def stdev(values):
+	'''This method computes the sample standard deviation for a given list
+	of values. Its accuracy has been compared to that of wolfram alpha and 
+	has been shown to be on par. Taken from data_analyzer.py
+	'''
+	n = len(values)
+	mean = float(sum(values))/n
+	return sqrt(sum([pow(v-mean,2) for v in values])/(n-1))
+
+def reg_average(collection):
+	'''taken from average.py, this function returns sample average
+	for a given list. '''
+	return float(sum(collection))/len(collection)
+
+def linear(X,Y):
+	n = len(X)
+	r = sum([x*y-reg_average(Y)*reg_average(X) for x in X for y in Y])/(n-1.0)*stdev(X)*stdev(Y)
+	beta = r*stdev(X)/stdev(Y)
+	alpha = reg_average(Y) - beta*reg_average(X)
