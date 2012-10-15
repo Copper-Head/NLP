@@ -10,6 +10,7 @@ This classifier, for testing purposes, uses the nltk movie review corpus.
 import datetime
 # from operator import mul
 from math import log
+from collections import defaultdict
 from nltk.corpus import movie_reviews as mr 
 
 CLASSES = mr.categories()
@@ -45,22 +46,16 @@ class Laplace_Label():
 		self.rev = [word for text in collection for word in mr.words(text)]
 		self.V = set(self.rev)
 		self.N = len(self.rev) + len(self.V)
-		self.word_probs = dict([(w, float(self.rev.count(w)+1)/self.N) for w in self.V])
+		self.word_probs = defaultdict(int, [(w, self.rev.count(w)) for w in self.V])
 		
 ################ Some Testing Machinery #########################
 
 def prob(word, label):
 	'''lots of error catching here'''
 	if label == 'pos':
-		try:
-			return pos.word_probs[word]
-		except KeyError:
-			return 1.0/pos.N
+		return (pos.word_probs[word]+1.0)/pos.N
 	elif label == 'neg':
-		try:
-			return neg.word_probs[word]
-		except KeyError:
-			return 1.0/neg.N
+		return (neg.word_probs[word]+1.0)/neg.N		
 	else:
 		raise Exception('An invalid label was passed. Exiting...')
 
@@ -69,7 +64,7 @@ def cat_score(review, cat):
 	'''gets probability of a document being in a class by summing up
 	the log probabilities of the words in the document, given the class.
 	'''
-	return -sum([log(prob(word, cat)) for word in mr.words(review)])
+	return sum([log(prob(word, cat)) for word in mr.words(review)])
 
 
 def foo(review):
