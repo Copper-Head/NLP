@@ -1,0 +1,24 @@
+Comparing the performance of unigrams Laplace with Kneser-Ney
+ Below are the results for Laplace Unigrams: 
+
+The average accuracy across 10 iterations was: 
+23.4444444444
+
+The average training time across 10 iterations was: 
+1.33028851615
+
+The average testing time across 10 iterations was: 
+
+0.235679785411
+
+ Below are the results for Kneser-Ney: 
+
+The average accuracy across 10 iterations was: 
+100.0
+
+The average training time across 10 iterations was: 
+4.16061112616
+
+The average testing time across 10 iterations was: 
+
+1.25964781973
